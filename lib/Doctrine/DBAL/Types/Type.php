@@ -48,6 +48,7 @@ abstract class Type
     const TIME = 'time';
     const TIME_IMMUTABLE = 'time_immutable';
     const DECIMAL = 'decimal';
+    const NUMERIC = 'numeric';
     const INTEGER = 'integer';
     const OBJECT = 'object';
     const SMALLINT = 'smallint';
@@ -64,14 +65,14 @@ abstract class Type
      *
      * @var array
      */
-    private static $_typeObjects = array();
+    private static $_typeObjects = [];
 
     /**
      * The map of supported doctrine mapping types.
      *
      * @var array
      */
-    private static $_typesMap = array(
+    private static $_typesMap = [
         self::TARRAY => ArrayType::class,
         self::SIMPLE_ARRAY => SimpleArrayType::class,
         self::JSON_ARRAY => JsonArrayType::class,
@@ -92,12 +93,13 @@ abstract class Type
         self::TIME => TimeType::class,
         self::TIME_IMMUTABLE => TimeImmutableType::class,
         self::DECIMAL => DecimalType::class,
+        self::NUMERIC => NumericType::class,
         self::FLOAT => FloatType::class,
         self::BINARY => BinaryType::class,
         self::BLOB => BlobType::class,
         self::GUID => GuidType::class,
         self::DATEINTERVAL => DateIntervalType::class,
-    );
+    ];
 
     /**
      * Prevents instantiation and forces use of the factory method.
@@ -333,7 +335,7 @@ abstract class Type
      */
     public function getMappedDatabaseTypes(AbstractPlatform $platform)
     {
-        return array();
+        return [];
     }
 
     /**

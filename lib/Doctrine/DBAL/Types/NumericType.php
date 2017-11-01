@@ -17,38 +17,30 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace Doctrine\DBAL\Platforms\Keywords;
+namespace Doctrine\DBAL\Types;
+
+use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 /**
- * PostgreSQL 9.4 reserved keywords list.
+ * Type that maps an SQL NUMERIC to a PHP string.
  *
- * @author Matteo Beccati <matteo@beccati.com>
- * @link   www.doctrine-project.org
- * @since  2.6
+ * @since 2.0
  */
-class PostgreSQL94Keywords extends PostgreSQL92Keywords
+class NumericType extends DecimalType
 {
     /**
      * {@inheritdoc}
      */
     public function getName()
     {
-        return 'PostgreSQL94';
+        return Type::NUMERIC;
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @link http://www.postgresql.org/docs/9.4/static/sql-keywords-appendix.html
      */
-    protected function getKeywords()
+    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
-        $parentKeywords = array_diff(parent::getKeywords(), [
-            'OVER',
-        ]);
-
-        return array_merge($parentKeywords, [
-            'LATERAL',
-        ]);
+        return $platform->getNumericTypeDeclarationSQL($fieldDeclaration);
     }
 }
